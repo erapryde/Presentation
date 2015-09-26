@@ -51,7 +51,7 @@ ext_widgets : {rCharts: [libraries/nvd3]}
 
 .fragment Examine the data at the sidebar.
 
-.fragment Press left to continue.
+.fragment Press right to continue.
 
 
 ---
