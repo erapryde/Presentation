@@ -1,0 +1,110 @@
+---
+title       : Pearson Education Data
+subtitle    : Input, Output and Socioeconomic Education Indicators from 1990 to 2015
+author      : Luo Kangshun, Andy
+job         : Education Statistician
+framework   : revealjs      # {io2012, html5slides, shower, dzslides, ...}
+revealjs    : {transition: cube}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [bootstrap, shiny, interactive]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+ext_widgets : {rCharts: [libraries/nvd3]}
+---
+
+## <a href="https://erapryde.shinyapps.io/Pearson_Education_Indicators_Luo_Andy">Pearson Education Data</a> (1/5)
+
+<br>
+<br>
+<div align="left"><font size="6">In this presentation, you may be directed to move <b>right</b> or <b>downwards</b>. </font></div> 
+
+<div align="left"><font size="6">This app was produced to research 15 years of Educational inputs, outputs and socioeconomic factors. </font></div> 
+
+<br>
+<br>
+<br>
+<div align="left"><font size="10" color=#FFD700>Luo Kangshun, Andy</font></div> 
+<div align="left"><font size="6" color=#ADFF2F>Educational Statistician </font></div> 
+
+
+--- &vertical
+
+## Education Trends tab (2/5)
+<div align="left"><font size="6">In the <a href="https://erapryde.shinyapps.io/Pearson_Education_Indicators_Luo_Andy">App</a>,select an Education Indicator from the sidebar as well as Years of Interest in the Education tab. The description is loaded as well as the correlation with time. Press down to see what you can do.</font></div> 
+
+```{r message=F, echo=F, eval= T, warnings =F}
+data2 <- read.csv("Consolidated.csv",na.strings = "NA")
+data2 <- data2[!is.na(data2$value),]
+data2 <- subset(data2, Index == "Human Development Index")
+data3 <- subset(data2, Country == "SINGAPORE")
+data2 <- subset(data2, Country == "FINLAND")
+data3 <- rbind(data3,data2)
+```
+
+```{r message=F, echo=F, eval= T, warnings =F, fig.width = 10, fig.height = 6, fig.align='center'}
+ ggplot(data3,aes(y=value,x=Year,colour=Country))+
+        geom_point()+geom_smooth(method='lm')+
+        xlab("year")+
+        ylab("Human Development Index")+
+        theme_stata()+scale_colour_stata()+
+        ggtitle("Human Development Index for SINGAPORE and FINLAND")+
+        scale_x_continuous()
+```
+
+
+***
+
+## Education Trends tab (3/5)
+
+
+.fragment Select the Education Indicator for comparison.
+
+.fragment Select two countries for comparison.
+
+.fragment Select the time-frame for comparison.
+
+.fragment Examine the data at the sidebar.
+
+.fragment Press left to continue.
+
+
+---
+
+## Snapshot Analysis (4/5)
+<div align="left"><font size="6">Select a Year as well as another Indicator to correlate. Drag across groups of points and they display in the area below the chart.</font></div> 
+
+```{r message=F, echo=F, eval= T}
+data2 <- read.csv("Consolidated.csv",na.strings = "NA")
+data2 <- data2[!is.na(data2$value),]
+data2 <- subset(data2,Year == 2010)
+data3 <- subset(data2, Index == "Human Development Index")
+data2 <- subset(data2, Index == "Health Index")
+data2 <- merge(data2,data3,by="Country")
+```
+
+```{r}
+ggplot(data2,aes(y=value.y,x=value.x))+
+        geom_point()+
+        geom_smooth(method="lm")+
+        xlab("Human Development Index")+
+        ylab("Health Index")+
+        theme_stata()+scale_colour_stata()+
+        ggtitle("Health Index against Human Development Index for 2010")
+```
+
+---
+
+## Education Data (5/5)
+
+<div align="left"><font size="6">Select a Country and indicator and the table displays.</font></div> 
+
+```{r message=F, echo=F, eval= T, warnings =F, fig.width = 10, fig.height = 6, fig.align='center'}
+data2 <- read.csv("Consolidated.csv",na.strings = "NA")
+data2 <- subset(data2, Country == "SINGAPORE")
+data2 <- subset(data2, Index =="Human Development Index")
+```
+
+```{r}
+data2
+```

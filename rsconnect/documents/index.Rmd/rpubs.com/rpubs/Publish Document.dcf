@@ -1,0 +1,7 @@
+name: Publish Document
+account: rpubs
+server: rpubs.com
+bundleId:
+        https://api.rpubs.com/api/v1/document/112431/cda58aa8f84a45a4918b027fe5a70544
+url: http://rpubs.com/erapryde/112431
+when: 1443273145.51966
